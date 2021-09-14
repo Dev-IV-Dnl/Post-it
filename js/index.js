@@ -1,8 +1,10 @@
 let conteneur = document.querySelector('.conteneur');
 let btnAjoutPostIt = document.querySelector("#btnAjoutPostIt");
 let tabPostIt = [];
-let action = "";
 let numPostIt;
+let action = "";
+let mousePositionorigineX;
+let mousePositionorigineY;
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
 function createPostIt(){
     conteneur.innerHTML = "";
@@ -28,6 +30,7 @@ window.addEventListener('load', () => {
             tabPostIt[numPostIt].affiche();
         }
         else if(numPostIt!==undefined && action == "agrandi"){
+            e.clientX = e.clientX+tabPostIt[numPostIt].longueur;
             tabPostIt[numPostIt].agrandi(e.clientX, e.clientY);
             tabPostIt[numPostIt].affiche();
         }
