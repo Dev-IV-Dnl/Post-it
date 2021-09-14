@@ -63,6 +63,16 @@ class PostIt {
         // tousLesBoutons.appendChild(btnDeplace);
         // btnDeplace.innerHTML = "<i class='fas fa-arrows-alt'></i>";
 
+        let btnEdit = document.createElement('button');
+        btnEdit.classList.add("btnEdit");
+        tousLesBoutons.appendChild(btnEdit);
+        btnEdit.innerHTML = "<i class='fas fa-edit'></i>";
+
+        let btnSupprime = document.createElement('button');
+        btnSupprime.classList.add("btnEdit");
+        tousLesBoutons.appendChild(btnSupprime);
+        btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
+        
         let btnAgrandi = document.createElement('button');
         btnAgrandi.classList.add("btnAgrandi");
         tousLesBoutons.appendChild(btnAgrandi);
@@ -74,19 +84,13 @@ class PostIt {
             } else {
                 numPostIt = this.num;
                 action = "agrandi";
+                mousePositionorigineX=mousePosX;
+                mousePositionorigineY=mousePosY;
+                longueurInit=this.longueur;
+                hauteurInit = this.hauteur;
             }
             e.stopPropagation();
         })
-
-        let btnEdit = document.createElement('button');
-        btnEdit.classList.add("btnEdit");
-        tousLesBoutons.appendChild(btnEdit);
-        btnEdit.innerHTML = "<i class='fas fa-edit'></i>";
-
-        let btnSupprime = document.createElement('button');
-        btnSupprime.classList.add("btnEdit");
-        tousLesBoutons.appendChild(btnSupprime);
-        btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
 
         if (newElem) {
             //si le post it n'existe pas on l'ajoute au document HTML
@@ -101,7 +105,6 @@ class PostIt {
                 }
                 e.stopPropagation();
             })
-
         }
     }
 }

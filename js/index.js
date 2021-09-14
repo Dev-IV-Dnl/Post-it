@@ -4,7 +4,11 @@ let tabPostIt = [];
 let numPostIt;
 let action = "";
 let mousePositionorigineX;
+let mousePosX;
 let mousePositionorigineY;
+let mousePosY;
+let longueurInit;
+let hauteurInit;
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
 function createPostIt(){
     conteneur.innerHTML = "";
@@ -22,16 +26,17 @@ window.addEventListener('load', () => {
     btnAjoutPostIt.addEventListener("click", ()=>{
             createPostIt();
         })
-    document.body.addEventListener("mousemove", e=>{
+    document.addEventListener("mousemove", e=>{
+        mousePosX=e.clientX;
+        mousePosY=e.clientY
         console.log(numPostIt);
         console.log(action);
         if(numPostIt!==undefined && action == "deplace"){
-            tabPostIt[numPostIt].deplace(e.clientY-90, e.clientX-75);
+            tabPostIt[numPostIt].deplace(e.clientY-70, e.clientX-75);
             tabPostIt[numPostIt].affiche();
         }
         else if(numPostIt!==undefined && action == "agrandi"){
-            e.clientX = e.clientX+tabPostIt[numPostIt].longueur;
-            tabPostIt[numPostIt].agrandi(e.clientX, e.clientY);
+            tabPostIt[numPostIt].agrandi(e.clientX-mousePositionorigineX+longueurInit, e.clientY-mousePositionorigineY+hauteurInit);
             tabPostIt[numPostIt].affiche();
         }
     })
