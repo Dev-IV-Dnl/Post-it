@@ -25,19 +25,24 @@ function createPostIt(){
 window.addEventListener('load', () => {
     btnAjoutPostIt.addEventListener("click", ()=>{
             createPostIt();
-        })
-    document.addEventListener("mousemove", e=>{
+    })
+    document.addEventListener("mousemove", (e) => {
         mousePosX=e.clientX;
-        mousePosY=e.clientY
+        mousePosY=e.clientY;
         console.log(numPostIt);
         console.log(action);
-        if(numPostIt!==undefined && action == "deplace"){
+        if(numPostIt!==undefined && action == "deplace") {
             tabPostIt[numPostIt].deplace(e.clientY-70, e.clientX-75);
             tabPostIt[numPostIt].affiche();
-        }
-        else if(numPostIt!==undefined && action == "agrandi"){
+        } else if(numPostIt!==undefined && action == "agrandi") {
             tabPostIt[numPostIt].agrandi(e.clientX-mousePositionorigineX+longueurInit, e.clientY-mousePositionorigineY+hauteurInit);
             tabPostIt[numPostIt].affiche();
+        } else if(numPostIt!==undefined && action == "supprime") {
+            tabPostIt[numPostIt].supprime();
         }
     })
 });
+
+function supprimePostIt() {
+    tabPostIt.splice(numPostIt, 1);
+}

@@ -31,6 +31,14 @@ class PostIt {
         this.texte = texte;
     }
 
+    supprime() {
+        numPostIt = this.num;
+        let lePostIt = document.getElementById("PostIt" + this.num);
+        conteneur.removeChild(lePostIt);
+        supprimePostIt();
+
+    }
+
     affiche() {
         let newElem = false;
         //On essaye d'attraper le postIt par son id
@@ -72,7 +80,16 @@ class PostIt {
         btnSupprime.classList.add("btnEdit");
         tousLesBoutons.appendChild(btnSupprime);
         btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
-        
+        btnSupprime.addEventListener("click", () => {
+            if (numPostIt === this.num) {
+                numPostIt = undefined;
+                action = "";
+            } else {
+                numPostIt = this.num;
+                action = "supprime";
+            }
+        })
+
         let btnAgrandi = document.createElement('button');
         btnAgrandi.classList.add("btnAgrandi");
         tousLesBoutons.appendChild(btnAgrandi);
@@ -84,9 +101,9 @@ class PostIt {
             } else {
                 numPostIt = this.num;
                 action = "agrandi";
-                mousePositionorigineX=mousePosX;
-                mousePositionorigineY=mousePosY;
-                longueurInit=this.longueur;
+                mousePositionorigineX = mousePosX;
+                mousePositionorigineY = mousePosY;
+                longueurInit = this.longueur;
                 hauteurInit = this.hauteur;
             }
             e.stopPropagation();
