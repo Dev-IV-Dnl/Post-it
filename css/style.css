@@ -1,0 +1,25 @@
+h1 {
+    color: darkblue;
+}
+
+.conteneur{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+
+}
+
+.postIt{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.tousLesBoutons {
+    display: flex;
+    justify-content: flex-end;
+}
