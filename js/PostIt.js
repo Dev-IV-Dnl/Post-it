@@ -32,12 +32,23 @@ class PostIt {
     }
 
     affiche() {
-        let monPostIt = document.createElement('div');
-        monPostIt.classList.add("postIt");
-        monPostIt.id = "PostIt" + this.num;
-        conteneur.appendChild(monPostIt);
-        monPostIt.style.marginTop = this.x + "px";
-        monPostIt.style.marginLeft = this.y + "px";
+        let newElem = false;
+        //On essaye d'attraper le postIt par son id
+        let monPostIt = document.getElementById("PostIt" + this.num);
+        if (monPostIt === null) {
+            //si le post it n'existe pas on le crée
+            newElem = true;
+            monPostIt = document.createElement("div");
+            monPostIt.classList.add("postIt");
+            monPostIt.id = "PostIt" + this.num;
+        }
+
+        // let monPostIt = document.createElement('div');
+        // monPostIt.classList.add("postIt");
+        // monPostIt.id = "PostIt" + this.num;
+
+        monPostIt.style.top = this.x + "px";
+        monPostIt.style.left = this.y + "px";
         monPostIt.style.width = this.longueur + "px";
         monPostIt.style.height = this.hauteur + "px";
         monPostIt.style.backgroundColor = this.couleur;
@@ -47,24 +58,50 @@ class PostIt {
         tousLesBoutons.classList.add("tousLesBoutons");
         monPostIt.appendChild(tousLesBoutons);
 
-        let btnDeplace = document.createElement('button');
-        btnDeplace.classList.add("btnDeplace");
-        tousLesBoutons.appendChild(btnDeplace);
-        btnDeplace.innerHTML = "<i class='fas fa-arrows-alt'></i>";
+        // let btnDeplace = document.createElement('button');
+        // btnDeplace.classList.add("btnDeplace");
+        // tousLesBoutons.appendChild(btnDeplace);
+        // btnDeplace.innerHTML = "<i class='fas fa-arrows-alt'></i>";
 
         let btnAgrandi = document.createElement('button');
         btnAgrandi.classList.add("btnAgrandi");
         tousLesBoutons.appendChild(btnAgrandi);
         btnAgrandi.innerHTML = "<i class='fas fa-expand-alt'></i>";
+        btnAgrandi.addEventListener("click", (e) => {
+            if (numPostIt === this.num) {
+                numPostIt = undefined;
+                action = "";
+            } else {
+                numPostIt = this.num;
+                action = "agrandi";
+            }
+            e.stopPropagation();
+        })
 
         let btnEdit = document.createElement('button');
         btnEdit.classList.add("btnEdit");
         tousLesBoutons.appendChild(btnEdit);
         btnEdit.innerHTML = "<i class='fas fa-edit'></i>";
 
-        monPostIt.addEventListener("click",()=> {
-            numPostIt = this.num;
-            console.log(numPostIt);
-        })
+        let btnSupprime = document.createElement('button');
+        btnSupprime.classList.add("btnEdit");
+        tousLesBoutons.appendChild(btnSupprime);
+        btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
+
+        if (newElem) {
+            //si le post it n'existe pas on l'ajoute au document HTML
+            conteneur.appendChild(monPostIt);
+            monPostIt.addEventListener("click", (e) => {
+                if (numPostIt === this.num) {
+                    numPostIt = undefined;
+                    action = "";
+                } else {
+                    numPostIt = this.num;
+                    action = "deplace";
+                }
+                e.stopPropagation();
+            })
+
+        }
     }
 }

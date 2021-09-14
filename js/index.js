@@ -1,12 +1,13 @@
 let conteneur = document.querySelector('.conteneur');
 let btnAjoutPostIt = document.querySelector("#btnAjoutPostIt");
 let tabPostIt = [];
-
+let action = "";
 let numPostIt;
-
+let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
 function createPostIt(){
     conteneur.innerHTML = "";
-    tabPostIt.push(new PostIt(tabPostIt.length, 6, 6, "lightblue", "Ceci est un post-it !", 150, 150));
+    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random()*4)], "Ceci est un post-it !", 150, 150));
+    
     for(let i in tabPostIt){
         tabPostIt[i].affiche();
     }
@@ -17,10 +18,18 @@ function createPostIt(){
 
 window.addEventListener('load', () => {
     btnAjoutPostIt.addEventListener("click", ()=>{
-        createPostIt();
-        conteneur.appendChild(btnAjoutPostIt);
-    })
-    document.addEventListener("mousemove", e=>{
-        
+            createPostIt();
+        })
+    document.body.addEventListener("mousemove", e=>{
+        console.log(numPostIt);
+        console.log(action);
+        if(numPostIt!==undefined && action == "deplace"){
+            tabPostIt[numPostIt].deplace(e.clientY-90, e.clientX-75);
+            tabPostIt[numPostIt].affiche();
+        }
+        else if(numPostIt!==undefined && action == "agrandi"){
+            tabPostIt[numPostIt].agrandi(e.clientX, e.clientY);
+            tabPostIt[numPostIt].affiche();
+        }
     })
 });

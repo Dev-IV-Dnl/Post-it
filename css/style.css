@@ -7,19 +7,20 @@ h1 {
     display: flex;
     width: 100%;
     align-items: flex-end;
-
 }
 
 .postIt{
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-weight: bold;
     padding: 5px;
     border-radius: 5px;
+    box-shadow: 2px 2px 5px;
 }
 
 .tousLesBoutons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
 }
