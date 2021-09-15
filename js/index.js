@@ -43,6 +43,6 @@ window.addEventListener('load', () => {
     })
 });
 
-function supprimePostIt() {
-    tabPostIt.splice(numPostIt, 1);
-}
+// function supprimePostIt() {
+//     tabPostIt.splice(numPostIt, 1);
+// }

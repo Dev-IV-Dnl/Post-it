@@ -33,7 +33,7 @@ class PostIt {
 
     supprime() {
         numPostIt = this.num;
-        let lePostIt = document.getElementById("PostIt" + this.num);
+        // let lePostIt = document.getElementById("PostIt" + this.num);
         conteneur.removeChild(lePostIt);
         supprimePostIt();
 
@@ -81,13 +81,10 @@ class PostIt {
         tousLesBoutons.appendChild(btnSupprime);
         btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
         btnSupprime.addEventListener("click", () => {
-            if (numPostIt === this.num) {
-                numPostIt = undefined;
-                action = "";
-            } else {
-                numPostIt = this.num;
-                action = "supprime";
-            }
+            numPostIt = this.num;
+            monPostIt.style.backgroundColor = "red";
+            monPostIt.remove();
+            tabPostIt.splice(numPostIt, 1);
         })
 
         let btnAgrandi = document.createElement('button');
