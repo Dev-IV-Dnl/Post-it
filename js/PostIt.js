@@ -5,14 +5,14 @@ class PostIt {
     longueur;
     hauteur;
     couleur;
-    texte;
+    contenu;
 
-    constructor(num, x, y, couleur, texte, longueur = 150, hauteur = 150) {
+    constructor(num, x, y, couleur, contenu, longueur = 150, hauteur = 150) {
         this.num = num;
         this.x = x;
         this.y = y;
         this.couleur = couleur;
-        this.texte = texte;
+        this.contenu = contenu;
         this.longueur = longueur;
         this.hauteur = hauteur;
     }
@@ -27,8 +27,8 @@ class PostIt {
         this.hauteur = hauteur;
     }
 
-    edit(texte) {
-        this.texte = texte;
+    edit(contenu) {
+        this.contenu = contenu;
     }
 
     supprime() {
@@ -50,16 +50,12 @@ class PostIt {
             monPostIt.id = "PostIt" + this.num;
         }
 
-        // let monPostIt = document.createElement('div');
-        // monPostIt.classList.add("postIt");
-        // monPostIt.id = "PostIt" + this.num;
-
         monPostIt.style.top = this.x + "px";
         monPostIt.style.left = this.y + "px";
         monPostIt.style.width = this.longueur + "px";
         monPostIt.style.height = this.hauteur + "px";
         monPostIt.style.backgroundColor = this.couleur;
-        monPostIt.textContent = this.texte;
+        monPostIt.textContent = this.contenu;
 
         let tousLesBoutons = document.createElement('div');
         tousLesBoutons.classList.add("tousLesBoutons");
@@ -70,21 +66,46 @@ class PostIt {
         // tousLesBoutons.appendChild(btnDeplace);
         // btnDeplace.innerHTML = "<i class='fas fa-arrows-alt'></i>";
 
-        let btnEdit = document.createElement('button');
-        btnEdit.classList.add("btnEdit");
+        let btnEdit = document.createElement("button");
+        btnEdit.classList.add("btnSupprime");
+        btnEdit.innerHTML = "<i class='fas fa-edit'></i>"
+        btnEdit.addEventListener("click", (e) => {
+            if (numPostIt === this.num) {
+                numPostIt = undefined;
+                action = "";
+            } else {
+                numPostIt = this.num;
+                action = "edit";
+            }
+            e.stopPropagation();
+        })
         tousLesBoutons.appendChild(btnEdit);
-        btnEdit.innerHTML = "<i class='fas fa-edit'></i>";
+
+        // let btnEdit = document.createElement('i')
+        // btnEdit.classList.add("fas", "fa-user-edit")
+        // btnEdit.addEventListener('click', (e) => {
+        //     if (numPostit !== this.num) {
+        //         numPostit = this.num
+        //         action = "edit"
+        //     } else {
+        //         numPostit = -1
+        //         action = ""
+        //     }
+        //     e.stopPropagation()
+        // })
+        // menu.appendChild(btnEdit)
 
         let btnSupprime = document.createElement('button');
-        btnSupprime.classList.add("btnEdit");
-        tousLesBoutons.appendChild(btnSupprime);
+        btnSupprime.classList.add("btnSupprime");
         btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
-        btnSupprime.addEventListener("click", () => {
+        btnSupprime.addEventListener("click", (e) => {
             numPostIt = this.num;
             monPostIt.style.backgroundColor = "red";
             monPostIt.remove();
             delete tabPostIt[numPostIt];
+            e.stopPropagation();
         })
+        tousLesBoutons.appendChild(btnSupprime);
 
         let btnAgrandi = document.createElement('button');
         btnAgrandi.classList.add("btnAgrandi");
