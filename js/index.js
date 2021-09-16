@@ -2,7 +2,7 @@ let conteneur = document.querySelector('.conteneur');
 let btnAjoutPostIt = document.querySelector("#btnAjoutPostIt");
 let tabPostIt = [];
 let numPostIt;
-let textPostit;
+let contenuPostIt;
 let action = "";
 let mousePositionorigineX;
 let mousePosX;
@@ -13,15 +13,18 @@ let hauteurInit;
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
 function createPostIt() {
     conteneur.innerHTML = "";
-    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 4)], "Ceci est un post-it !", 150, 150));
+    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 4)], "Click on Edit to write...", 150, 150));
 
     for (let i in tabPostIt) {
-        tabPostIt[i].affiche();
+        tabPostIt[i].afficher();
     }
 }
 
-// let postIt1 = new PostIt(5, 5, "lightgreen", "Ceci est mon premier post-it", 200, 200);
-// let postIt2 = new PostIt(5, 5, "lightblue", "Ceci est mon deuxième post-it, dans celui-ci j'aimerais écrire un de mes projets", 250, 250);
+// Console debug
+setInterval(() => {
+    document.querySelector('.debug').innerHTML = "| numpostit = " + numPostIt + "<br>| action = " + action + "<br>| pos souris X = " + mousePosX + "<br>| pos souris Y = " + mousePosY
+}, 500);
+// Fin console debug
 
 window.addEventListener('load', () => {
     btnAjoutPostIt.addEventListener("click", () => {
@@ -35,12 +38,34 @@ window.addEventListener('load', () => {
         if (numPostIt !== undefined && action == "deplace") {
 
             tabPostIt[numPostIt].deplace(e.clientY - tabPostIt[numPostIt].hauteur / 2, e.clientX - tabPostIt[numPostIt].longueur / 2);
-            tabPostIt[numPostIt].affiche();
+            tabPostIt[numPostIt].afficher();
+
         } else if (numPostIt !== undefined && action == "agrandi") {
-            tabPostIt[numPostIt].agrandi(e.clientX - mousePositionorigineX + longueurInit, e.clientY - mousePositionorigineY + hauteurInit);
-            tabPostIt[numPostIt].affiche();
+            tabPostIt[numPostIt].agrandir(e.clientX - mousePositionorigineX + longueurInit, e.clientY - mousePositionorigineY + hauteurInit);
+            tabPostIt[numPostIt].afficher();
+
         } else if (numPostIt !== undefined && action == "supprime") {
-            tabPostIt[numPostIt].supprime();
+            tabPostIt[numPostIt].supprimer();
+
+        }
+    })
+
+    document.addEventListener("keydown", (e) => {
+        console.log(e);
+        if(numPostIt !== undefined && action == "edit") {
+            if (e.key === "Shift" || e.key === "Control") { }
+            else if (e.key === "Enter") {
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + "<br>")
+                tabPostIt[numPostIt].afficher()
+            }
+            else if (e.key === "Backspace") {
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu.substr(0, tabPostIt[numPostIt].contenu.length - 1))
+                tabPostIt[numPostIt].afficher()
+            }
+            else {
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + e.key)
+                tabPostIt[numPostIt].afficher()
+            }
         }
     })
 });

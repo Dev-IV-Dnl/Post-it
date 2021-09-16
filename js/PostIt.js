@@ -22,7 +22,7 @@ class PostIt {
         this.y = y;
     }
 
-    agrandi(longueur, hauteur) {
+    agrandir(longueur, hauteur) {
         this.longueur = longueur;
         this.hauteur = hauteur;
     }
@@ -31,14 +31,14 @@ class PostIt {
         this.contenu = contenu;
     }
 
-    supprime() {
+    supprimer() {
         numPostIt = this.num;
         // let lePostIt = document.getElementById("PostIt" + this.num);
         conteneur.removeChild(lePostIt);
-        supprimePostIt();
+        supprimerPostIt();
     }
 
-    affiche() {
+    afficher() {
         let newElem = false;
         //On essaye d'attraper le postIt par son id
         let monPostIt = document.getElementById("PostIt" + this.num);
@@ -47,6 +47,7 @@ class PostIt {
             newElem = true;
             monPostIt = document.createElement("div");
             monPostIt.classList.add("postIt");
+            monPostIt.title = "Cliquez pour déplacer...";
             monPostIt.id = "PostIt" + this.num;
         }
 
@@ -61,13 +62,11 @@ class PostIt {
         tousLesBoutons.classList.add("tousLesBoutons");
         monPostIt.appendChild(tousLesBoutons);
 
-        // let btnDeplace = document.createElement('button');
-        // btnDeplace.classList.add("btnDeplace");
-        // tousLesBoutons.appendChild(btnDeplace);
-        // btnDeplace.innerHTML = "<i class='fas fa-arrows-alt'></i>";
 
+        //Gestion du bouton EDIT :
         let btnEdit = document.createElement("button");
-        btnEdit.classList.add("btnSupprime");
+        btnEdit.classList.add("btnSupprimer");
+        btnEdit.title = "Editer ce Post-it...";
         btnEdit.innerHTML = "<i class='fas fa-edit'></i>"
         btnEdit.addEventListener("click", (e) => {
             if (numPostIt === this.num) {
@@ -81,37 +80,29 @@ class PostIt {
         })
         tousLesBoutons.appendChild(btnEdit);
 
-        // let btnEdit = document.createElement('i')
-        // btnEdit.classList.add("fas", "fa-user-edit")
-        // btnEdit.addEventListener('click', (e) => {
-        //     if (numPostit !== this.num) {
-        //         numPostit = this.num
-        //         action = "edit"
-        //     } else {
-        //         numPostit = -1
-        //         action = ""
-        //     }
-        //     e.stopPropagation()
-        // })
-        // menu.appendChild(btnEdit)
 
-        let btnSupprime = document.createElement('button');
-        btnSupprime.classList.add("btnSupprime");
-        btnSupprime.innerHTML = "<i class='fas fa-trash'></i>";
-        btnSupprime.addEventListener("click", (e) => {
+        //Gestion du bouton Supprime :
+        let btnSupprimer = document.createElement('button');
+        btnSupprimer.classList.add("btnSupprimer");
+        btnSupprimer.title = "Supprimer ce Post-it...";
+        btnSupprimer.innerHTML = "<i class='fas fa-trash'></i>";
+        btnSupprimer.addEventListener("click", (e) => {
             numPostIt = this.num;
             monPostIt.style.backgroundColor = "red";
             monPostIt.remove();
             delete tabPostIt[numPostIt];
             e.stopPropagation();
         })
-        tousLesBoutons.appendChild(btnSupprime);
+        tousLesBoutons.appendChild(btnSupprimer);
 
-        let btnAgrandi = document.createElement('button');
-        btnAgrandi.classList.add("btnAgrandi");
-        tousLesBoutons.appendChild(btnAgrandi);
-        btnAgrandi.innerHTML = "<i class='fas fa-expand-alt'></i>";
-        btnAgrandi.addEventListener("click", (e) => {
+
+        //Gestion du bouton Agrandir :
+        let btnAgrandir = document.createElement('button');
+        btnAgrandir.classList.add("btnAgrandi");
+        btnAgrandir.title = "Agrandir ce Post-it...";
+        tousLesBoutons.appendChild(btnAgrandir);
+        btnAgrandir.innerHTML = "<i class='fas fa-expand-alt'></i>";
+        btnAgrandir.addEventListener("click", (e) => {
             if (numPostIt === this.num) {
                 numPostIt = undefined;
                 action = "";
