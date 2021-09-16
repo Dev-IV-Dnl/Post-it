@@ -1,5 +1,41 @@
+:root {
+    --col1: #333;
+    --col2: #F1F1F1;
+    --col3: lightgrey;
+}
+
+body {
+    background-color: var(--col2);
+}
+
 h1 {
-    color: darkblue;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--col2);
+    background-color: var(--col1);
+    width: 150px;
+    height: 50px;
+    border: solid 2px var(--col1);
+    border-radius: 5px;
+
+}
+
+.btnAjoutPostIt {
+    width: 150px;
+    height: 30px;
+    background-color: var(--col1);
+    color: var(--col2);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: linear 0.3s;
+}
+.btnAjoutPostIt:hover {
+    transform: scale(1.1);
+    margin-left: 5px;
+    color: var(--col1);
+    background-color: var(--col3);
 }
 
 .conteneur{
@@ -17,7 +53,7 @@ h1 {
     font-weight: bold;
     padding: 5px;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px;
+    box-shadow: 2px 2px 5px var(--col1);
 }
 
 .tousLesBoutons {
@@ -29,9 +65,9 @@ h1 {
     margin-top: 10px;
     padding: 5px;
     background-color: #333;
-    color: #f1f1f1;
+    color: var(--col2);
     width: 170px;
     height: 80px;
-    border: black 1px solid;
+    border: var(--col2) 1px solid;
     border-radius: 5px;
 }

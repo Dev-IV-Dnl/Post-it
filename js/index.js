@@ -10,10 +10,10 @@ let mousePositionorigineY;
 let mousePosY;
 let longueurInit;
 let hauteurInit;
-let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
+let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow", "lightseagreen", "lightgrey", "lightsalmon", "lightskyblue", "lightcoral"];
 function createPostIt() {
     conteneur.innerHTML = "";
-    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 4)], "Click on Edit to write...", 150, 150));
+    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 9)], "Click on Edit to write...", 150, 150));
 
     for (let i in tabPostIt) {
         tabPostIt[i].afficher();
@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
     //les commandes qui suivent définissent les évènement du clavier pour le mode édition
     document.addEventListener("keydown", (e) => {
         // console.log(e);
-        if(numPostIt !== undefined && action == "edit") {
+        if (numPostIt !== undefined && action == "edit") {
             if (e.key === "Shift" || e.key === "Control") { }
             else if (e.key === "Enter") {
                 tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + "<br>");
