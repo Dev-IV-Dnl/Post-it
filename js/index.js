@@ -33,8 +33,6 @@ window.addEventListener('load', () => {
     document.addEventListener("mousemove", (e) => {
         mousePosX = e.clientX;
         mousePosY = e.clientY;
-        console.log(numPostIt);
-        console.log(action);
         if (numPostIt !== undefined && action == "deplace") {
 
             tabPostIt[numPostIt].deplace(e.clientY - tabPostIt[numPostIt].hauteur / 2, e.clientX - tabPostIt[numPostIt].longueur / 2);
@@ -50,23 +48,30 @@ window.addEventListener('load', () => {
         }
     })
 
+    //les commandes qui suivent définissent les évènement du clavier pour le mode édition
     document.addEventListener("keydown", (e) => {
-        console.log(e);
+        // console.log(e);
         if(numPostIt !== undefined && action == "edit") {
             if (e.key === "Shift" || e.key === "Control") { }
             else if (e.key === "Enter") {
-                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + "<br>")
-                tabPostIt[numPostIt].afficher()
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + "<br>");
+                tabPostIt[numPostIt].afficher();
             }
             else if (e.key === "Backspace") {
-                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu.substr(0, tabPostIt[numPostIt].contenu.length - 1))
-                tabPostIt[numPostIt].afficher()
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu.substr(0, tabPostIt[numPostIt].contenu.length - 1));
+                tabPostIt[numPostIt].afficher();
             }
             else {
-                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + e.key)
-                tabPostIt[numPostIt].afficher()
+                tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + e.key);
+                tabPostIt[numPostIt].afficher();
             }
         }
+    })
+
+    // La commande qui suit permet de cliquez n'importe où pour sortir du mode édition et ne pas être obligé de recliquer sur ce bouton.
+    document.addEventListener('click', () => {
+        numPostit = "";
+        action = "";
     })
 });
 
