@@ -2,6 +2,7 @@ let conteneur = document.querySelector('.conteneur');
 let btnAjoutPostIt = document.querySelector("#btnAjoutPostIt");
 let tabPostIt = [];
 let numPostIt;
+let textPostit;
 let action = "";
 let mousePositionorigineX;
 let mousePosX;
@@ -10,11 +11,11 @@ let mousePosY;
 let longueurInit;
 let hauteurInit;
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow"];
-function createPostIt(){
+function createPostIt() {
     conteneur.innerHTML = "";
-    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random()*4)], "Ceci est un post-it !", 150, 150));
-    
-    for(let i in tabPostIt){
+    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 4)], "Ceci est un post-it !", 150, 150));
+
+    for (let i in tabPostIt) {
         tabPostIt[i].affiche();
     }
 }
@@ -23,21 +24,22 @@ function createPostIt(){
 // let postIt2 = new PostIt(5, 5, "lightblue", "Ceci est mon deuxième post-it, dans celui-ci j'aimerais écrire un de mes projets", 250, 250);
 
 window.addEventListener('load', () => {
-    btnAjoutPostIt.addEventListener("click", ()=>{
-            createPostIt();
+    btnAjoutPostIt.addEventListener("click", () => {
+        createPostIt();
     })
     document.addEventListener("mousemove", (e) => {
-        mousePosX=e.clientX;
-        mousePosY=e.clientY;
+        mousePosX = e.clientX;
+        mousePosY = e.clientY;
         console.log(numPostIt);
         console.log(action);
-        if(numPostIt!==undefined && action == "deplace") {
-            tabPostIt[numPostIt].deplace(e.clientY-70, e.clientX-75);
+        if (numPostIt !== undefined && action == "deplace") {
+
+            tabPostIt[numPostIt].deplace(e.clientY - tabPostIt[numPostIt].hauteur / 2, e.clientX - tabPostIt[numPostIt].longueur / 2);
             tabPostIt[numPostIt].affiche();
-        } else if(numPostIt!==undefined && action == "agrandi") {
-            tabPostIt[numPostIt].agrandi(e.clientX-mousePositionorigineX+longueurInit, e.clientY-mousePositionorigineY+hauteurInit);
+        } else if (numPostIt !== undefined && action == "agrandi") {
+            tabPostIt[numPostIt].agrandi(e.clientX - mousePositionorigineX + longueurInit, e.clientY - mousePositionorigineY + hauteurInit);
             tabPostIt[numPostIt].affiche();
-        } else if(numPostIt!==undefined && action == "supprime") {
+        } else if (numPostIt !== undefined && action == "supprime") {
             tabPostIt[numPostIt].supprime();
         }
     })

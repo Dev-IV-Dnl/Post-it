@@ -36,7 +36,6 @@ class PostIt {
         // let lePostIt = document.getElementById("PostIt" + this.num);
         conteneur.removeChild(lePostIt);
         supprimePostIt();
-
     }
 
     affiche() {
@@ -84,7 +83,7 @@ class PostIt {
             numPostIt = this.num;
             monPostIt.style.backgroundColor = "red";
             monPostIt.remove();
-            tabPostIt.splice(numPostIt, 1);
+            delete tabPostIt[numPostIt];
         })
 
         let btnAgrandi = document.createElement('button');
