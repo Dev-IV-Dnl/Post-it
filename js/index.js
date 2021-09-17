@@ -14,10 +14,16 @@ let hauteurInit;
 //json parse et json stringify
 
 
+// Console debug
+setInterval(() => {
+    document.querySelector('.debug').innerHTML = "| numpostit = " + numPostIt + "<br>| action = " + action + "<br>| pos souris X = " + mousePosX + "<br>| pos souris Y = " + mousePosY
+}, 500);
+// Fin console debug
+
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow", "lightseagreen", "lightgrey", "lightsalmon", "lightskyblue", "lightcoral"];
 function createPostIt() {
     conteneur.innerHTML = "";
-    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 9)], "Click on Edit to write...", 150, 150));
+    tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 9)], "Post-it : ", 150, 150));
     for (let i in tabPostIt) {
         tabPostIt[i].afficher();
     }
@@ -60,22 +66,18 @@ function cookie() {
     console.log(mesPostItStringify);
     createCookie("mesPostit", mesPostItStringify, 365);
 }
-// Console debug
-setInterval(() => {
-    document.querySelector('.debug').innerHTML = "| numpostit = " + numPostIt + "<br>| action = " + action + "<br>| pos souris X = " + mousePosX + "<br>| pos souris Y = " + mousePosY
-}, 500);
-// Fin console debug
 
 window.addEventListener('load', () => {
     let lectureMesPostItStringify = readCookie("mesPostit");
     //Je frabrique une nouvelle variable qui permet de retransformer mon cookie précédemment créée en tableau de nouveau afin de pouvoir afficher grâce à ce nouveau tableau.
     let jsonParseMesPostIt = JSON.parse(lectureMesPostItStringify);
-    console.log(jsonParseMesPostIt);
     if (jsonParseMesPostIt !== null) {
         for (let i in jsonParseMesPostIt.tabPostIt) {
-            console.log(jsonParseMesPostIt.tabPostIt[i])
-            tabPostIt.push(new PostIt(i, jsonParseMesPostIt.tabPostIt[i].x, jsonParseMesPostIt.tabPostIt[i].y, jsonParseMesPostIt.tabPostIt[i].couleur, jsonParseMesPostIt.tabPostIt[i].contenu, jsonParseMesPostIt.tabPostIt[i].longueur, jsonParseMesPostIt.tabPostIt[i].hauteur));
-            tabPostIt[i].afficher();
+           // console.log(jsonParseMesPostIt.tabPostIt);
+            if(jsonParseMesPostIt.tabPostIt[i]!== null) {
+                tabPostIt.push(new PostIt(i, jsonParseMesPostIt.tabPostIt[i].x, jsonParseMesPostIt.tabPostIt[i].y, jsonParseMesPostIt.tabPostIt[i].couleur, jsonParseMesPostIt.tabPostIt[i].contenu, jsonParseMesPostIt.tabPostIt[i].longueur, jsonParseMesPostIt.tabPostIt[i].hauteur));
+                tabPostIt[tabPostIt.length-1].afficher();
+            }
         }
     }
 
