@@ -10,16 +10,54 @@ let mousePositionorigineY;
 let mousePosY;
 let longueurInit;
 let hauteurInit;
+
+//json parse et json stringify
+
+
 let tabColor = ["lightblue", "lightgreen", "lightpink", "lightyellow", "lightseagreen", "lightgrey", "lightsalmon", "lightskyblue", "lightcoral"];
 function createPostIt() {
     conteneur.innerHTML = "";
     tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 9)], "Click on Edit to write...", 150, 150));
-
     for (let i in tabPostIt) {
         tabPostIt[i].afficher();
     }
+
 }
 
+//Début fonctions pour les cookies
+
+//Création d'un cookie
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+
+// fin fonctions pour les cookies
+function cookie() {
+    let mesPostItStringify = JSON.stringify({ tabPostIt });
+    console.log(mesPostItStringify);
+    createCookie("mesPostit", mesPostItStringify, 365);
+}
 // Console debug
 setInterval(() => {
     document.querySelector('.debug').innerHTML = "| numpostit = " + numPostIt + "<br>| action = " + action + "<br>| pos souris X = " + mousePosX + "<br>| pos souris Y = " + mousePosY
@@ -27,6 +65,18 @@ setInterval(() => {
 // Fin console debug
 
 window.addEventListener('load', () => {
+    let lectureMesPostItStringify = readCookie("mesPostit");
+    let jsonparseMesPostItStringify = JSON.parse(lectureMesPostItStringify);
+    console.log(jsonparseMesPostItStringify);
+    if (jsonparseMesPostItStringify !== null) {
+        for (let i in jsonparseMesPostItStringify.tabPostIt) {
+            console.log(jsonparseMesPostItStringify.tabPostIt[i])
+            tabPostIt.push(new PostIt(i, jsonparseMesPostItStringify.tabPostIt[i].x, jsonparseMesPostItStringify.tabPostIt[i].y, jsonparseMesPostItStringify.tabPostIt[i].couleur, jsonparseMesPostItStringify.tabPostIt[i].contenu, jsonparseMesPostItStringify.tabPostIt[i].longueur, jsonparseMesPostItStringify.tabPostIt[i].hauteur));
+            tabPostIt[i].afficher();
+        }
+    }
+
+    setInterval(cookie, 1000);
     btnAjoutPostIt.addEventListener("click", () => {
         createPostIt();
     })
@@ -73,8 +123,7 @@ window.addEventListener('load', () => {
         numPostit = "";
         action = "";
     })
+
+
 });
 
-// function supprimePostIt() {
-//     tabPostIt.splice(numPostIt, 1);
-// }

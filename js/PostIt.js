@@ -2,10 +2,10 @@ class PostIt {
     num;
     x;
     y;
-    longueur;
-    hauteur;
     couleur;
     contenu;
+    longueur;
+    hauteur;
 
     constructor(num, x, y, couleur, contenu, longueur = 150, hauteur = 150) {
         this.num = num;
