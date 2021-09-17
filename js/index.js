@@ -53,6 +53,8 @@ function eraseCookie(name) {
 }
 
 // fin fonctions pour les cookies
+
+//Je crée une fonction cookie qui transforme mon tableau en cookie donc en chaine de caractère et je l'intègre dans une variable de mon choix
 function cookie() {
     let mesPostItStringify = JSON.stringify({ tabPostIt });
     console.log(mesPostItStringify);
@@ -66,12 +68,13 @@ setInterval(() => {
 
 window.addEventListener('load', () => {
     let lectureMesPostItStringify = readCookie("mesPostit");
-    let jsonparseMesPostItStringify = JSON.parse(lectureMesPostItStringify);
-    console.log(jsonparseMesPostItStringify);
-    if (jsonparseMesPostItStringify !== null) {
-        for (let i in jsonparseMesPostItStringify.tabPostIt) {
-            console.log(jsonparseMesPostItStringify.tabPostIt[i])
-            tabPostIt.push(new PostIt(i, jsonparseMesPostItStringify.tabPostIt[i].x, jsonparseMesPostItStringify.tabPostIt[i].y, jsonparseMesPostItStringify.tabPostIt[i].couleur, jsonparseMesPostItStringify.tabPostIt[i].contenu, jsonparseMesPostItStringify.tabPostIt[i].longueur, jsonparseMesPostItStringify.tabPostIt[i].hauteur));
+    //Je frabrique une nouvelle variable qui permet de retransformer mon cookie précédemment créée en tableau de nouveau afin de pouvoir afficher grâce à ce nouveau tableau.
+    let jsonParseMesPostIt = JSON.parse(lectureMesPostItStringify);
+    console.log(jsonParseMesPostIt);
+    if (jsonParseMesPostIt !== null) {
+        for (let i in jsonParseMesPostIt.tabPostIt) {
+            console.log(jsonParseMesPostIt.tabPostIt[i])
+            tabPostIt.push(new PostIt(i, jsonParseMesPostIt.tabPostIt[i].x, jsonParseMesPostIt.tabPostIt[i].y, jsonParseMesPostIt.tabPostIt[i].couleur, jsonParseMesPostIt.tabPostIt[i].contenu, jsonParseMesPostIt.tabPostIt[i].longueur, jsonParseMesPostIt.tabPostIt[i].hauteur));
             tabPostIt[i].afficher();
         }
     }
