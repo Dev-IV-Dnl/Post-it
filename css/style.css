@@ -19,14 +19,23 @@ h1 {
     height: 50px;
     border: solid 2px var(--col1);
     border-radius: 5px;
+}
 
+.conteneurbutton {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btnAjoutPostIt {
     width: 150px;
     height: 30px;
-    background-color: var(--col1);
-    color: var(--col2);
+    background-color: var(--col3);
+    color: var(--col1);
+    font-weight: bold;
+    box-shadow: 2px 2px 5px var(--col1);
     border-radius: 5px;
     cursor: pointer;
     transition: linear 0.3s;
@@ -34,13 +43,14 @@ h1 {
 .btnAjoutPostIt:hover {
     transform: scale(1.1);
     margin-left: 5px;
-    color: var(--col1);
-    background-color: var(--col3);
+    color: var(--col2);
+    background-color: var(--col1);
 }
 
 .conteneur{
-    position: fixed;
+    width: 100%;
     display: flex;
+    justify-content: center;
     width: 100%;
     align-items: flex-end;
 }
@@ -62,10 +72,12 @@ h1 {
 }
 
 .debug {
+    /* display: none; */
     margin-top: 10px;
     padding: 5px;
     background-color: #333;
     color: var(--col2);
+    font-weight: bold;
     width: 170px;
     height: 80px;
     border: var(--col2) 1px solid;
