@@ -27,7 +27,6 @@ function createPostIt() {
     for (let i in tabPostIt) {
         tabPostIt[i].afficher();
     }
-
 }
 
 //Début fonctions pour les cookies
