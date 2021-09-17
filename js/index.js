@@ -80,6 +80,8 @@ window.addEventListener('load', () => {
             }
         }
     }
+// yopppppppppppppppppppppppp
+
 
     setInterval(cookie, 1000);
     btnAjoutPostIt.addEventListener("click", () => {
