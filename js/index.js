@@ -81,7 +81,7 @@ window.addEventListener('load', () => {
         }
     }
 
-    setInterval(cookie, 1000);
+    setInterval(cookie, 500);
     btnAjoutPostIt.addEventListener("click", () => {
         createPostIt();
     })
