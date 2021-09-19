@@ -26,6 +26,7 @@ function createPostIt() {
     tabPostIt.push(new PostIt(tabPostIt.length, 100, 200, tabColor[Math.floor(Math.random() * 9)], "Post-it : ", 150, 150));
     for (let i in tabPostIt) {
         tabPostIt[i].afficher();
+        console.log(tabPostIt);
     }
 }
 
@@ -62,7 +63,6 @@ function eraseCookie(name) {
 //Je crée une fonction cookie qui transforme mon tableau en cookie donc en chaine de caractère et je l'intègre dans une variable de mon choix
 function cookie() {
     let mesPostItStringify = JSON.stringify({ tabPostIt });
-    console.log(mesPostItStringify);
     createCookie("mesPostit", mesPostItStringify, 365);
 }
 
@@ -72,10 +72,9 @@ window.addEventListener('load', () => {
     let jsonParseMesPostIt = JSON.parse(lectureMesPostItStringify);
     if (jsonParseMesPostIt !== null) {
         for (let i in jsonParseMesPostIt.tabPostIt) {
-           // console.log(jsonParseMesPostIt.tabPostIt);
-            if(jsonParseMesPostIt.tabPostIt[i]!== null) {
+            if (jsonParseMesPostIt.tabPostIt[i] !== null) {
                 tabPostIt.push(new PostIt(i, jsonParseMesPostIt.tabPostIt[i].x, jsonParseMesPostIt.tabPostIt[i].y, jsonParseMesPostIt.tabPostIt[i].couleur, jsonParseMesPostIt.tabPostIt[i].contenu, jsonParseMesPostIt.tabPostIt[i].longueur, jsonParseMesPostIt.tabPostIt[i].hauteur));
-                tabPostIt[tabPostIt.length-1].afficher();
+                tabPostIt[tabPostIt.length - 1].afficher();
             }
         }
     }
@@ -89,7 +88,7 @@ window.addEventListener('load', () => {
         mousePosY = e.clientY;
         if (numPostIt !== undefined && action == "deplace") {
 
-            tabPostIt[numPostIt].deplace(e.clientY - tabPostIt[numPostIt].hauteur / 2, e.clientX - tabPostIt[numPostIt].longueur / 2);
+            tabPostIt[numPostIt].deplace(e.clientX - tabPostIt[numPostIt].longueur / 2, e.clientY - tabPostIt[numPostIt].hauteur / 2);
             tabPostIt[numPostIt].afficher();
 
         } else if (numPostIt !== undefined && action == "agrandi") {
@@ -104,7 +103,6 @@ window.addEventListener('load', () => {
 
     //les commandes qui suivent définissent les évènement du clavier pour le mode édition
     document.addEventListener("keydown", (e) => {
-        // console.log(e);
         if (numPostIt !== undefined && action == "edit") {
             if (e.key === "Shift" || e.key === "Control") { }
             else if (e.key === "Enter") {

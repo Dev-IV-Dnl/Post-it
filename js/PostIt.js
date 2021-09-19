@@ -51,8 +51,8 @@ class PostIt {
             monPostIt.id = "PostIt" + this.num;
         }
 
-        monPostIt.style.top = this.x + "px";
-        monPostIt.style.left = this.y + "px";
+        monPostIt.style.top = this.y + "px";
+        monPostIt.style.left = this.x + "px";
         monPostIt.style.width = this.longueur + "px";
         monPostIt.style.height = this.hauteur + "px";
         monPostIt.style.backgroundColor = this.couleur;
