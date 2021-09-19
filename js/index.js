@@ -86,24 +86,23 @@ window.addEventListener('load', () => {
     document.addEventListener("mousemove", (e) => {
         mousePosX = e.clientX;
         mousePosY = e.clientY;
-        if (numPostIt !== undefined && action == "deplace") {
+        if (numPostIt !== undefined && action == "deplacer") {
 
             tabPostIt[numPostIt].deplace(e.clientX - tabPostIt[numPostIt].longueur / 2, e.clientY - tabPostIt[numPostIt].hauteur / 2);
             tabPostIt[numPostIt].afficher();
 
-        } else if (numPostIt !== undefined && action == "agrandi") {
+        } else if (numPostIt !== undefined && action == "agrandir") {
             tabPostIt[numPostIt].agrandir(e.clientX - mousePositionorigineX + longueurInit, e.clientY - mousePositionorigineY + hauteurInit);
             tabPostIt[numPostIt].afficher();
 
-        } else if (numPostIt !== undefined && action == "supprime") {
+        } else if (numPostIt !== undefined && action == "supprimer") {
             tabPostIt[numPostIt].supprimer();
-
         }
     })
 
     //les commandes qui suivent définissent les évènement du clavier pour le mode édition
     document.addEventListener("keydown", (e) => {
-        if (numPostIt !== undefined && action == "edit") {
+        if (numPostIt !== undefined && action == "editer") {
             if (e.key === "Shift" || e.key === "Control") { }
             else if (e.key === "Enter") {
                 tabPostIt[numPostIt].edit(tabPostIt[numPostIt].contenu + "<br>");
@@ -125,7 +124,4 @@ window.addEventListener('load', () => {
         numPostit = "";
         action = "";
     })
-
-
 });
-

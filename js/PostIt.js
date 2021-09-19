@@ -74,7 +74,7 @@ class PostIt {
                 action = "";
             } else {
                 numPostIt = this.num;
-                action = "edit";
+                action = "editer";
             }
             e.stopPropagation();
         })
@@ -108,7 +108,7 @@ class PostIt {
                 action = "";
             } else {
                 numPostIt = this.num;
-                action = "agrandi";
+                action = "agrandir";
                 mousePositionorigineX = mousePosX;
                 mousePositionorigineY = mousePosY;
                 longueurInit = this.longueur;
@@ -117,6 +117,8 @@ class PostIt {
             e.stopPropagation();
         })
 
+
+        //Gestion du bouton Deplacer :
         if (newElem) {
             //si le post it n'existe pas on l'ajoute au document HTML
             conteneur.appendChild(monPostIt);
@@ -126,7 +128,7 @@ class PostIt {
                     action = "";
                 } else {
                     numPostIt = this.num;
-                    action = "deplace";
+                    action = "deplacer";
                 }
                 e.stopPropagation();
             })
